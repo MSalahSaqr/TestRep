@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <input type="text" id="name" placeholder="name" />
+      <input type="text" id="degree" placeholder="degree" />
+      <input type="number" id="sal" placeholder="salary" />
+      <input type="button" id="btn" value="add" />
+    </form>
+  </body>
+</html>
+<script src="jquery-3.5.1.js"></script>
+<script>
+  $(function () {
+    $.ajax({
+      url: "http://localhost:50181/api/instructors",
+      method: "get",
+      success: function (data) {
+        alert(JSON.stringify(data));
+      },
+      error: function (ER) {
+        alert("ERROR");
+      },
+    });
+  });
+
+  $("#btn").click(function () {
+    let x = {
+      Ins_Name: $("#name").val(),
+      Ins_Degree: $("#degree").val(),
+      salary: $("#sal").val(),
+      Dept_Id: 10,
+    };
+    $.ajax({
+      url: "http://localhost:50181/api/instructors",
+      method: "post",
+      data: JSON.stringify(x),
+      contentType: "application/json",
+      success: function (data) {
+        alert(JSON.stringify(data));
+      },
+      error: function (er) {
+        alert(er.status);
+      },
+    });
+  });
+</script>
